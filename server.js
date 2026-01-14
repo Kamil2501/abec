@@ -32,17 +32,22 @@ app.post("/", (req, res) => {
     return res.status(400).send("Message body is empty\n");
   }
 
-  // Prepare text to append (Timestamp : Message \n)
-  const logEntry = `[${new Date().toISOString()}] ${message}\n`;
+  // Format the date using Polish locale (pl-PL)
+  const formattedDate = new Date().toLocaleString("pl-PL", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+
+  // Prepare text to append
+  const logEntry = `[${formattedDate}] ${message}\n`;
 
   // Append to file
   fs.appendFile(FILE_PATH, logEntry, (err) => {
     if (err) return res.status(500).send("Error saving message\n");
     res.send("Message received\n");
   });
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Storage file: ${FILE_PATH}`);
 });
