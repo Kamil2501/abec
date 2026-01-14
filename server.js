@@ -51,3 +51,8 @@ app.post("/", (req, res) => {
     res.send("Message received\n");
   });
 });
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+  console.log(`Storage file: ${FILE_PATH}`);
+})
