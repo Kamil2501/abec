@@ -17,6 +17,7 @@ app.get("/", (req, res) => {
     return res.send("No messages yet.\n");
   }
 
+  console.log("Someone has looked")
   // Read file and send plain text response
   fs.readFile(FILE_PATH, "utf8", (err, data) => {
     if (err) return res.status(500).send("Error reading file\n");
@@ -44,6 +45,7 @@ app.post("/", (req, res) => {
 
   // Prepare text to append
   const logEntry = `[${formattedDate}] ${message}\n`;
+  console.log(`Uploaded: ${logEntry}`)
 
   // Append to file
   fs.appendFile(FILE_PATH, logEntry, (err) => {
